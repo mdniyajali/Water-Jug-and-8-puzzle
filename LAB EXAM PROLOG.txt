@@ -1,0 +1,116 @@
+Question no. 1jealousy
+
+male(ram).
+male(rawan).
+male(ramesh).
+
+female(sita).
+female(geeta).
+
+loves(ram,sita).
+loves(rawan,sita).
+loves(sita,ramesh).
+loves(geeta,ramesh).
+loves(geeta,sita).
+
+jealousy(X,Y):-loves(X,Z),loves(Y,Z),X\=Y,opposite_gender(X,Z),opposite_gender(Y,Z).
+
+opposite_gender(X,Y):-male(X),female(Y);male(Y),female(X).
+
+
+ 
+
+Question no. 2in_laws
+
+male(ram).
+male(hari).
+male(rajesh).
+
+female(anita).
+female(sita).
+female(geeta).
+
+parent(gopal,ram).
+parent(gopal,anita).
+parent(gopal,gita).
+parent(shema,hari).
+parent(shema,sita).
+parent(shema,rajesh).
+
+married(anita,hari).
+married(hari,anita).
+married(sita,ram).
+married(ram,sita).
+
+brother_in_law(X,Y):-
+    (male(X),married(X,Z),sibling(Z,Y));
+    (male(X),married(Z,Y),sibling(X,Z));
+    (male(X),married(X,Z),married(Z,W),sibling(W,Y)).
+
+sister_in_law(X,Y):-
+    (female(X),married(X,Z),sibling(Z,Y));
+    (female(X),married(Z,Y),sibling(X,Z));
+    (female(X),married(X,Z),married(Z,W),sibling(Y,W)).
+
+sibling(X,Y):-
+    parent(P,X),
+    parent(P,Y),
+    X\=Y.
+
+ 
+
+
+
+Question no 3friendship
+
+friend(ram,krishna).
+friend(ram,bishnu).
+friend(ram,bimal).
+friend(bishnu,piyush).
+friend(bishnu,ramesh).
+friend(piyush,nirmal).
+friend(bimal,kamal).
+
+%friend(X,Y):-friend(Y,X).
+%this is for if ram is friend fobishnu , bishnu is also friend of ram
+
+friendoffriend(X,Z):-friend(X,Z).
+friendoffriend(X,Z):-friend(X,Y),friendoffriend(Y,Z).
+
+
+
+ 
+Question no 4 represent graph
+ 
+edge(a,1).
+edge(a,3).
+edge(1,2).
+edge(1,4).
+edge(3,4).
+edge(2,5).
+edge(4,5).
+
+
+route(Vertex1,Vertex2):-
+edge(Vertex1,Vertex2),
+    %print route
+write(Vertex1),
+write('->'),
+write(Vertex2).
+
+route(Vertex1,Vertex2):-
+edge(Vertex1,CommonVertex),
+write(Vertex1),
+write('->'),
+route(CommonVertex,Vertex2).
+
+
+ 
+
+
+Question 5 factorial
+
+factorial(1,1):-!.
+factorial(N,F):-N>1,N1 is N-1,factorial(N1,F1),F is N*F1.
+
+ 
